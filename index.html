@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Time Announcer in Your Local Language!</title>
+
+  <link rel="stylesheet" href="css/clock.css">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/speaker.css">
+
+  <script defer src="js/dom.js"></script>
+  <script defer src="js/clock.js"></script>
+  <script src="js/gapless5.js"></script>
+  <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+
+  <!--speaker -->
+
+  <div id="speaker" class="hidden speaker">
+    <div class="request-loader">
+      <span><img src="images/generic/speaker.gif" alt=""></span>
+    </div>
+  </div>
+
+  <!-- speaker-->
+
+  <!--resume timer -->
+  <div class="resume-timer hidden">
+    <p>Do you want to resume the timer you had previously set? </p>
+    <div>
+      <button class="action-button" id="accept-resume">Yes</button>
+      <button class="action-button" id="deny-resume">No</button>
+    </div>
+  </div>
+  <!-- resume timer -->
+
+
+  <div id="announcer" class="table-input">
+
+
+    <div class="card">
+      <div class="clock">
+        <div class="hour hand" id="hour"></div>
+        <div class="minute hand" id="minute"></div>
+        <div class="seconds hand" id="seconds"></div>
+        <img src="images/generic/clockTemplate.svg" alt="clock">
+      </div>
+
+
+      <div class=" container">
+
+
+
+        <form id="language-form" class="card-form" action="">
+          <h1 class="timetable_h1_label">Time Announcer, loudly 🔊</h1>
+
+          <p class="fun-msg">Have some Fun!</p>
+
+          <div class="input days">
+            <select required id="language-select" class="input-field" name="" id="">
+              <option selected class="small-text" disabled hidden value="">--click here to show list--</option>
+              <option value="kalenjin">Kalenjin</option>
+              <option value="kamba">Kamba</option>
+
+            </select>
+
+            <label class="input-label">Please Select your Language</label>
+          </div>
+          <div class="input">
+            <input value="1" step=".0001" min="0.5" max="2.5" id="playback-speed" type="range" class="input-field" value="" required />
+            <label class="input-label">Adjust Playback Speed: x<span id="playback-rate-text">1.0</span></label>
+          </div>
+          <div class="input">
+            <input step=".000001" value="100" min="0" max="100" id="voice-volume" type="range" class="input-field" required />
+            <label class="input-label">Adjust voice Volume: <span id="volume-text">100%</span></label>
+          </div>
+          <!--
+          <div class="input">
+            <input value="09:00" id="ending-time" type="time" class="input-field" required />
+            <label class="input-label">Timer will start at 9.00pm, set</label>
+          </div>
+          -->
+
+          <div class="input days">
+            <select required id="timer-select" class="input-field" form="timer-form" name="">
+              <option class="small-text" disabled selected hidden value="">--click here to show list--</option>
+              <option value="5000">5s</option>
+              <option value="30000">30s</option>
+              <option value="60000">60s</option>
+              <option value="300000">300s</option>
+            </select>
+
+            <label class="input-label">Set Auto Announce Duration</label>
+
+          </div>
+          <p id="instruction" class="timer-message">Press the <span>Announce</span> button below to announce the current time, or the <span>Start Timer</span> button to set a timer. </p>
+
+          <p id="countdown" class="timer-message hidden">
+            Will announce after <span id="timer-counter">30s</span>
+          </p>
+          <div class="action">
+            <button type="submit" form="timer-form" id="submit-timer" class="action-button">Start Timer</button>
+
+
+
+            <button type="submit" form="language-form" id="submit-language" class="action-button">Announce</button>
+          </div>
+
+
+
+        </form>
+        <form id="timer-form" action=""></form>
+        <div class="social">
+          <div>
+            <a target="_blank" href="https://github.com/gerkim62">
+              <img src="images/social/GitHub.svg" alt="GitHub logo">
+            </a>
+          </div>
+          <div>
+            <a target="_blank" href="https://facebook.com/ger.kim.62">
+              <img src="images/social/Facebook.svg" alt="Facebook logo">
+            </a>
+          </div>
+
+          <div>
+            <a target="_blank" href="https://wa.me/+254715870654">
+              <img src="images/social/WhatsApp.svg" alt="WhatsApp logo">
+            </a>
+          </div>
+          <div>
+            <a target="_blank" href="https://t.me/gerison_kimathi">
+              <img src="images/social/Telegram.svg" alt="Telegram logo">
+            </a>
+          </div>
+          <div>
+            <a target="_blank" href="tel:+254715870654">
+              <img src="images/social/phone-call.svg" alt="Phone call icon">
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table input end-->
+
+
+  <footer>
+    Brought to you by Gerison, with love 💖
+  </footer>
+</body>
+
+
+</html>
