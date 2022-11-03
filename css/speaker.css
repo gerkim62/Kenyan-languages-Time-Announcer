@@ -1,0 +1,145 @@
+.speaker {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: inherit;
+  overflow-y: hidden !important;
+  
+}
+
+.request-loader {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  background: #FFFFFF;
+  box-shadow: inset 0 0 20px 0 rgba(0, 0, 0, 0.25), 0 0 20px 0 rgba(0, 0, 0, 0.25);
+  
+}
+
+.request-loader span {
+  position: relative;
+  font-size: 72px;
+  top: 5px;
+  left: -5px;
+}
+
+.request-loader span img {
+  opacity: .6;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-49%, -50%) scale(.5);
+  border-radius: 50%;
+}
+
+.request-loader::after {
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  width: 100%;
+  border: 8px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+
+  animation-name: ripple;
+
+  animation-duration: 1s;
+
+  animation-delay: 0s;
+
+  animation-iteration-count: infinite;
+
+  animation-timing-function: ease;
+  z-index: -1;
+}
+
+.request-loader::before {
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: 0;
+  bottom: 0;
+  content: "";
+  height: 100%;
+  width: 100%;
+  border: 8px solid rgba(0, 0, 0, 0.2);
+  border-radius: 100%;
+
+  
+  z-index: -1;
+}
+
+/*animation class*/
+.speaker.play .request-loader{
+  animation: ripple2 2s ease infinite alternate;
+}
+.speaker.play  .request-loader::before{
+  animation-name: ripple;
+  
+  animation-duration: .52s;
+  
+  animation-delay: 0.1s;
+  
+  animation-iteration-count: infinite;
+  
+  animation-timing-function: ease;
+}
+
+.speaker.play .request-loader::after {
+  animation-name: ripple;
+
+  animation-duration: 1s;
+
+  animation-delay: 0s;
+
+  animation-iteration-count: infinite;
+
+  animation-timing-function: ease;
+}
+
+
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale3d(0.85, 0.85, 1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale3d(1.5, 1.5, 1);
+  }
+}
+
+@keyframes ripple2 {
+  0% {
+    opacity: 1;
+    transform: scale3d(0.75, 0.75, 1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
