@@ -9,11 +9,14 @@
   <link rel="stylesheet" href="css/clock.css">
 
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/spinner.css">
   <link rel="stylesheet" href="css/speaker.css">
+  <link rel="stylesheet" href="libraries/notie.min.css">
 
   <script defer src="js/dom.js"></script>
   <script defer src="js/clock.js"></script>
-  <script src="js/gapless5.js"></script>
+  <script src="libraries/gapless5.js"></script>
+  <script defer src="libraries/notie.min.js"></script>
   <script type="module" src="js/main.js"></script>
 </head>
 
@@ -22,9 +25,15 @@
   <!--speaker -->
 
   <div id="speaker" class="hidden speaker">
+    <p class="time-string">Getting ready, please wait...</p>
     <div class="request-loader">
       <span><img src="images/generic/speaker.gif" alt=""></span>
     </div>
+    <!-- spinner-->
+    <svg class="spinner" viewBox="0 0 50 50">
+      <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+    </svg>
+    <!--spinner-->
   </div>
 
   <!-- speaker-->
@@ -64,8 +73,12 @@
           <div class="input days">
             <select required id="language-select" class="input-field" name="" id="">
               <option selected class="small-text" disabled hidden value="">--click here to show list--</option>
+              <option value="english">English</option>
               <option value="kalenjin">Kalenjin</option>
+              <option value="meru">Meru</option>
               <option value="kamba">Kamba</option>
+              <option value="luo">Luo</option>
+              <option value="giriama">Giriama</option>
 
             </select>
 
@@ -79,6 +92,10 @@
             <input step=".000001" value="100" min="0" max="100" id="voice-volume" type="range" class="input-field" required />
             <label class="input-label">Adjust voice Volume: <span id="volume-text">100%</span></label>
           </div>
+                    <div class="input">
+                      <input value="1" step=".0001" min="0.3" max="1" id="sensitivity" type="range" class="input-field" required />
+                      <label class="input-label">Adjust Clap Sensitivity: <span id="sensitivity-text"></span></label>
+                    </div>
           <!--
           <div class="input">
             <input value="09:00" id="ending-time" type="time" class="input-field" required />
@@ -93,6 +110,7 @@
               <option value="30000">30s</option>
               <option value="60000">60s</option>
               <option value="300000">300s</option>
+              <option value=""><button>Custom</button></option>
             </select>
 
             <label class="input-label">Set Auto Announce Duration</label>
@@ -101,7 +119,7 @@
           <p id="instruction" class="timer-message">Press the <span>Announce</span> button below to announce the current time, or the <span>Start Timer</span> button to set a timer. </p>
 
           <p id="countdown" class="timer-message hidden">
-            Will announce after <span id="timer-counter">30s</span>
+            Will announce after <span id="timer-counter"></span>
           </p>
           <div class="action">
             <button type="submit" form="timer-form" id="submit-timer" class="action-button">Start Timer</button>
@@ -154,6 +172,8 @@
   <footer>
     Brought to you by Gerison, with love 💖
   </footer>
+<!-- Static App Form Collection Script -->
+<script src="" type="text/javascript"></script>
 </body>
 
 
