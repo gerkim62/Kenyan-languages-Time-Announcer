@@ -8,16 +8,30 @@ export const getAfricanHours = hours => {
 
 export const getSoundsUrls = ({ sounds: sounds, folder: folder, formart: formart }) => {
   return sounds.map(sound => {
-    return `${folder}/${sound}.${formart}`.replace(' ', '')
+    return `${folder}/${sound}.${formart}`.replace(' ', '').replace("'",'')
   })
 }
 
 
-export const playSounds = ({ soundsUrls: soundsUrls, volume: volume, playbackRate: playbackRate }) => {
-  showSpeaker()
+export const playSounds = ({ soundsUrls: soundsUrls, volume: volume, playbackRate: playbackRate, timeString: timeString }) => {
+  timeStringEl.textContent = 'Getting ready, please wait...'
+  showSpinner()
+
+
+  //alert('There was an error, please check your internet connection or reload the page')
+
+  if (typeof Gapless5 === 'undefined') {
+    return notie.force({
+      type: 3,
+      text: 'An error has occured, please reload the page.',
+      time: 2,
+      buttonText: 'Reload',
+      callback: this.location.href = this.location.href
+    })
+  }
   const player = new Gapless5({
     tracks: soundsUrls,
-    crossFade: 50,
+    crossFade: 0,
     exclusive: true,
     playbackRate: playbackRate,
     useHTML5Audio: true,
@@ -25,8 +39,13 @@ export const playSounds = ({ soundsUrls: soundsUrls, volume: volume, playbackRat
     crossfadeShape: CrossfadeShape.Linear,
     volume: volume
   })
+  showSpeaker()
   player.play()
-  player.onplay = () => speakerEl.classList.add('play')
+  player.onplay = () => {
+    hideSpinner()
+    speakerEl.classList.add('play')
+    timeStringEl.textContent = timeString
+  }
   player.onpause = () => hideSpeaker()
   player.onfinishedall = () => {
     setTimeout(() => {
@@ -35,7 +54,26 @@ export const playSounds = ({ soundsUrls: soundsUrls, volume: volume, playbackRat
     }, 340)
 
   }
-  player.onerror = () => console.log('An error has occured!')
+  let failCount = 0
+  player.onerror = (audio) => {
+    hideSpeaker()
+    failCount++
+    if (failCount <= 1) {
+      return notie.force({
+        type: 3,
+        text: 'An error has occured while trying to start the announcer. Please report this problem using the social links',
+        time: 2,
+        buttonText: 'Ok',
+        
+      })
+
+    }
+
+    console.log('Error', failCount + ':', 'An error has occured while trying to play', audio, 'in', soundsUrls)
+
+  }
+  
+  hideSpinner()
 
   return player
 }
@@ -63,3 +101,21 @@ export const getSelectedOptionFrom = selectEl => {
   const selectedOption = selectEl.querySelector("option:checked");
   return selectedOption
 }
+
+
+export const secondsToTime = seconds =>{
+  const SECONDS_IN_HOUR = 3600
+  const SECONDS_IN_MINUTE = 60
+    const hours = Math.floor(seconds / SECONDS_IN_HOUR).toString().padStart(2,''),
+          minutes = Math.floor(seconds % SECONDS_IN_HOUR / SECONDS_IN_MINUTE).toString().padStart(2,'0'),
+          remainingSeconds = Math.floor(seconds % SECONDS_IN_MINUTE).toString().padStart(2,'0');
+    
+    
+    return `${hours>0?hours+'h ':''}${minutes>0?minutes+'m ':''}${remainingSeconds}s`;
+}
+
+console.log(secondsToTime(6500))
+
+const hideSpinner = ()=>spinnerEl.classList.add('hidden')
+
+const showSpinner = ()=>spinnerEl.classList.remove('hidden')

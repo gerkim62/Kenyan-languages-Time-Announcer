@@ -1,23 +1,28 @@
-import {getAfricanHours, getSoundsUrls} from './utils.js'
+import { getAfricanHours, getSoundsUrls } from './utils.js'
 
-const ZERO_TO_TEN__ONES = ['ki', 'imwe', 'ili', 'itatu', 'inya', 'itano', 'thanzatu', 'mwonza', 'nyanya', 'kenda', 'ikumi']
+const ZERO_TO_TEN__ONES = ['ciongwa', 'imwe', 'iyili', 'ithatu', 'inya', 'ithano', 'ithanthatu', 'muanja', 'inyanya', 'kenda', 'ikumi']
 const AND__PHRASE = 'na'
-const TENS__PHRASE = 'miongo'
+const TENS__PHRASE = 'mirongo'
 
-const IT_IS__PHRASE = 'ni saa'
+const IT_IS__PHRASE = 'i thaa'
+const TWO__FOR_TENS = 'ili_withMirongoTone'
 
-const TWO__FOR_TENS = 'ili_withMiongoTone'
-const ONE__FOR_HOURS = 'umwe'
-const SIX__FOR_HOURS = 'sita'
+const THREE__FOR_TENS = 'ithatu_withMirongoTone'
+
+const ONE__FOR_HOURS = 'imwe'
+
+const SIX__FOR_HOURS = 'thita'
 const TEN__FOR_HOURS = 'kumi'
 const FOUR__FOR_TENS = 'ina'
 
-const MINUTE_PHRASE = 'datika'
+const FIVE__FOR_TENS = 'itano'
 
-export const KAMBA_AUDIO_FOLDER = 'sounds/kamba'
+const MINUTE_PHRASE = 'ndaika'
 
-const getKambaSoundsForNumber = ({number:number=0, isHours:isHours=false}={}) => {
-  
+export const MERU_AUDIO_FOLDER = 'sounds/meru'
+
+const getMeruSoundsForNumber = ({ number: number = 0, isHours: isHours = false } = {}) => {
+
   const sounds = []
 
   const numberOfTens = Math.floor(number / 10)
@@ -55,14 +60,23 @@ const getKambaSoundsForNumber = ({number:number=0, isHours:isHours=false}={}) =>
 
   if (numberOfTens === 2) {
     sounds.push(TWO__FOR_TENS)
-    
+
+  }
+  
+  if (numberOfTens === 3) {
+    sounds.push(THREE__FOR_TENS)
+  
   }
 
   if (numberOfTens === 4) {
     sounds.push(FOUR__FOR_TENS)
   }
+  
+    if (numberOfTens === 5) {
+      sounds.push(FIVE__FOR_TENS)
+    }
 
-  if (numberOfTens > 1 && numberOfTens !== 4 && numberOfTens !== 2) {
+  if (numberOfTens > 1 && numberOfTens !== 3 && numberOfTens !==5 && numberOfTens !== 4 && numberOfTens !== 2) {
     sounds.push(ZERO_TO_TEN__ONES[numberOfTens])
   }
 
@@ -76,24 +90,23 @@ const getKambaSoundsForNumber = ({number:number=0, isHours:isHours=false}={}) =>
   return sounds
 }
 
-export const getKambaTimeString = ({date:date=new Date()}={})=>{
-  
-  let sounds = getKambaSoundsForTime({date:date})
-  
-  sounds = sounds.map(sound =>{
-    if(sound.indexOf('_')>-1) return sound.slice(0, sound.indexOf("_"));
+export const getMeruTimeString = ({ date: date = new Date() } = {}) => {
+
+  let sounds = getMeruSoundsForTime({ date: date })
+
+  sounds = sounds.map(sound => {
+    if (sound.indexOf('_') > -1) return sound.slice(0, sound.indexOf("_"));
     else return sound
   })
-  
-  return sounds.join(' ')+'.'
+
+  return sounds.join(' ') + '.'
 }
 
-export const getKambaSoundsForTime = ({date:date=new Date()}={}) =>{
+export const getMeruSoundsForTime = ({ date: date = new Date() } = {}) => {
   const minutes = date.getMinutes()
   const hours = getAfricanHours(date.getHours())
-  
-  if(!minutes)return [IT_IS__PHRASE, ...getKambaSoundsForNumber({number:hours, isHours:true}), ...getKambaSoundsForNumber({number:minutes})]
-  
-  return [IT_IS__PHRASE, ...getKambaSoundsForNumber({number:hours, isHours:true}),AND__PHRASE, MINUTE_PHRASE, ...getKambaSoundsForNumber({number:minutes})]
-}
 
+  if (!minutes) return [IT_IS__PHRASE, ...getMeruSoundsForNumber({ number: hours, isHours: true }), ...getMeruSoundsForNumber({ number: minutes })]
+
+  return [IT_IS__PHRASE, ...getMeruSoundsForNumber({ number: hours, isHours: true }), AND__PHRASE, MINUTE_PHRASE, ...getMeruSoundsForNumber({ number: minutes })]
+}

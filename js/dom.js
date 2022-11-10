@@ -22,3 +22,10 @@ const acceptResumeBtn = $('#accept-resume')
 const denyResumeBtn = $('#deny-resume')
 
 const resumeDiv = $('.resume-timer')
+
+const timeStringEl = $('.time-string')
+
+const sensitivityInputEl = $('#sensitivity')
+const sensitivityTextEl = $('#sensitivity-text')
+
+const spinnerEl = $('.spinner')
